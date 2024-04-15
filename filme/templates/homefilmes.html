@@ -8,9 +8,11 @@ HomeFilmes Hashflix
 <div class="py-10">
     {% for filme in object_list %}
         <hr>
-        <h1>{{ filme.titulo }}</h1>
+        <a href="{% url 'filme:detalhesfilme' filme.pk %}"><p>{{ filme.titulo }}</p></a>
         <p>{{ filme.descricao }}</p>
         <img src="{{ filme.thumb.url }}" alt="">
     {% endfor %}
 </div>
+
+<a href="https://hashflix.com">Link Personalizado</a>
 {% endblock %}
