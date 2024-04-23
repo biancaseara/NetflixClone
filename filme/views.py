@@ -20,6 +20,12 @@ class Detalhesfilme(DetailView):
     template_name = "detalhesfilme.html"
     model = Filme
 
+    def get(self, request, *args, **kwargs):
+        filme = self.get_object()
+        filme.visualizacoes += 1
+        filme.save()
+        return super().get(request, *args, **kwargs) # redireciona o usuário a url final
+
     def get_context_data(self, **kwargs):
         context = super(Detalhesfilme, self).get_context_data(**kwargs)
 
