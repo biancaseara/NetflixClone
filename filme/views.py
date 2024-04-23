@@ -1,4 +1,5 @@
 from typing import Any
+from django.db.models.query import QuerySet
 from django.shortcuts import render
 from .models import Filme
 from django.views.generic import TemplateView, ListView, DetailView
@@ -33,6 +34,21 @@ class Detalhesfilme(DetailView):
         context['filmes_relacionados'] = filmes_relacionados
 
         return context
+
+
+class Pesquisafilme(ListView):
+    template_name = "pesquisa.html"
+    model = Filme
+
+    def get_queryset(self):
+        termo_pesquisa = self.request.GET.get('query')
+        if termo_pesquisa:
+            object_list = self.model.objects.filter(titulo__icontains=termo_pesquisa)
+            return object_list
+        else:
+            return None 
+
+
 
 
 # function based view (fbv)
