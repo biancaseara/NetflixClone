@@ -60,6 +60,8 @@ class Pesquisafilme(LoginRequiredMixin, ListView):
             return None 
 
 
+class Paginaperfil(LoginRequiredMixin, TemplateView):
+    template_name = "editarperfil.html"
 
 
 # function based view (fbv)

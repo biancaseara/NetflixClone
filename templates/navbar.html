@@ -18,11 +18,13 @@
 
         <div class="mr-2">
             {% if user.is_authenticated %}
-            <a href="">
-                <button class="bg-red-600 rounded-md text-white py-1 px-3">Sair</button>
-            </a>
+            <!-- Using a form with a POST method to logout because Django's logout view requires POST requests. -->
+            <form action="{% url 'filme:logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="bg-red-600 rounded-md text-white py-1 px-3">Sair</button>
+            </form>            
             {% else %}
-            <a href="">
+            <a href="{% url 'filme:login' %}">
                 <button class="bg-red-600 rounded-md text-white py-1 px-3">Login</button>
             </a>
             {% endif %}
@@ -30,7 +32,7 @@
 
         {% if user.is_authenticated %}
         <div class="mr-2">
-            <a>
+            <a href="{% url 'filme:editarperfil' %}">
                 <button class="bg-red-600 rounded-md text-white py-1 px-3">
                     Editar Perfil
                 </button>
