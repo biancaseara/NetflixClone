@@ -3,22 +3,30 @@ from django.db.models.query import QuerySet
 from django.http import HttpRequest
 from django.http.response import HttpResponse as HttpResponse
 from django.shortcuts import render, redirect, reverse
-from .models import Filme
+from .models import Filme, Usuario
 from django.views.generic import TemplateView, ListView, DetailView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import CriarContaForm
+from .forms import CriarContaForm, HomepageForm
 
-# Create your views here.
 
 # class based view (cbv)
-class Homepage(TemplateView):
+class Homepage(FormView):
     template_name = "homepage.html"
+    form_class = HomepageForm
 
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             return redirect('filme:homefilmes')
         else:
             return super().get(request, *args, **kwargs) # redirect to homepage
+
+    def get_success_url(self):
+        email = self.request.POST.get("email")
+        usuarios = Usuario.objects.filter(email=email)
+        if usuarios:
+            return reverse('filme:login')
+        else:
+            return reverse('filme:criarconta')
 
 
 class Homefilmes(LoginRequiredMixin, ListView):
