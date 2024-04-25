@@ -18,3 +18,10 @@
         - Título
 
 - Barra de Pesquisa
+
+
+Issues I'd Like to Address:
+    1. Carousel Not Functioning:
+        - The carousel is currently not working as expected. I need to troubleshoot and fix this issue.
+    2. Login Form Display:
+        - The login form is currently displayed inline, but I want it to be displayed as block elements for better layout and styling.
